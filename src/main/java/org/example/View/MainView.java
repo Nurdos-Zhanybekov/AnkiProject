@@ -10,6 +10,8 @@ public class MainView extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+        ImageIcon imageIcon = new ImageIcon("C:\\Users\\Public\\Java_PL_Course\\AnkiProject\\src\\main\\java\\thumbnails\\Anki-icon.svg.png");
+        setIconImage(imageIcon.getImage());
 
         Color backgroundColor = new Color(43, 43, 43);
         Color textColor = new Color(220, 220, 220);
@@ -43,11 +45,11 @@ public class MainView extends JFrame {
     }
 
     private JPanel getDeckPanel(Color textColor){
-        JPanel deckPanel = new JPanel(new BorderLayout());
-        deckPanel.setBackground(new Color(50, 50, 50));
-        deckPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        JPanel deckPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 100, 20));
+        deckPanel.setBackground(new Color(40, 40, 40));
 
-        JLabel deckLabel = new JLabel("Deck                                   New                    Learning                    Reviewing");
+
+        JLabel deckLabel = new JLabel("Deck                                   New             Learning          Reviewing");
         deckLabel.setForeground(textColor);
         deckLabel.setFont(new Font("Arial", Font.BOLD, 14));
         deckPanel.add(deckLabel, BorderLayout.NORTH);
@@ -55,10 +57,10 @@ public class MainView extends JFrame {
         JPanel deckRow = new JPanel(new GridLayout(1, 5, 0, 0));
         deckRow.setBackground(new Color(20, 20, 20));
 
-        JLabel deckName = new JLabel("das Vokabular1");
-        JLabel newWords = new JLabel("0", SwingConstants.CENTER);
-        JLabel learningWords = new JLabel("0", SwingConstants.CENTER);
-        JLabel reviewWords = new JLabel("0", SwingConstants.CENTER);
+        JLabel deckName = new JLabel("     das Vokabular1", SwingConstants.LEFT);
+        JLabel newWords = new JLabel("                      0", SwingConstants.CENTER);
+        JLabel learningWords = new JLabel("                     0", SwingConstants.CENTER);
+        JLabel reviewWords = new JLabel("                     0", SwingConstants.CENTER);
 
         deckName.setForeground(textColor);
         newWords.setForeground(textColor);
