@@ -2,11 +2,15 @@ package org.example.View;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainView extends JFrame {
-    public MainView(){
+    private CardView cardView;
+    public MainView(CardView cardView){
+        this.cardView = cardView;
         setTitle("Anki");
-        setSize(700, 400);
+        setSize(800, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -20,9 +24,11 @@ public class MainView extends JFrame {
 
         JPanel navBar = getNavBar(textColor);
         JPanel deckPanel = getDeckPanel(textColor);
+        JPanel bottomBar = getBottomBar(textColor);
 
         add(navBar, BorderLayout.NORTH);
         add(deckPanel, BorderLayout.CENTER);
+        add(bottomBar, BorderLayout.SOUTH);
         setVisible(true);
     }
 
@@ -31,17 +37,7 @@ public class MainView extends JFrame {
         navBar.setBackground(new Color(50, 50, 50));
 
         String[] tabs = {"Decks", "Add", "List", "Statistic"};
-        for(String tab : tabs){
-            JButton tagButton = new JButton(tab);
-            tagButton.setFocusPainted(false);
-            tagButton.setForeground(textColor);
-            tagButton.setFont(new Font("Arial", Font.BOLD, 15));
-            tagButton.setBackground(new Color(50, 50, 50));
-            tagButton.setBorderPainted(false);
-            tagButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            navBar.add(tagButton);
-        }
-        return navBar;
+        return buttonDesign(textColor, navBar, tabs);
     }
 
     private JPanel getDeckPanel(Color textColor){
@@ -67,7 +63,7 @@ public class MainView extends JFrame {
         learningWords.setForeground(textColor);
         reviewWords.setForeground(textColor);
 
-        JButton settingsButton = new JButton("\u2699");
+        JButton settingsButton = new JButton("⚙");
         settingsButton.setForeground(textColor);
         settingsButton.setBackground(new Color(20, 20, 20));
         settingsButton.setBorderPainted(false);
@@ -80,5 +76,36 @@ public class MainView extends JFrame {
 
         deckPanel.add(deckRow, BorderLayout.CENTER);
         return deckPanel;
+    }
+
+    private JPanel getBottomBar(Color textColor) {
+        JPanel navBar = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 20));
+        navBar.setBackground(new Color(50, 50, 50));
+
+        String[] tabs = {"Download", "Create deck"};
+        return buttonDesign(textColor, navBar, tabs);
+    }
+
+    private JPanel buttonDesign(Color textColor, JPanel bar, String[] tabs) {
+        for(String tab : tabs){
+            JButton tagButton = new JButton(tab);
+            tagButton.setFocusPainted(false);
+            tagButton.setForeground(textColor);
+            tagButton.setFont(new Font("Arial", Font.BOLD, 15));
+            tagButton.setBackground(new Color(50, 50, 50));
+            tagButton.setBorderPainted(false);
+            tagButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            bar.add(tagButton);
+
+            if(tagButton.getText().equals("Add")){
+                tagButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        cardView.getCardView();
+                    }
+                });
+            }
+        }
+        return bar;
     }
 }
